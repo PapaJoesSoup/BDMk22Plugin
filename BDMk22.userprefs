@@ -1,0 +1,16 @@
+﻿<Properties StartupItem="BDMk22Plugin.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Mk22HUD.cs">
+    <Files>
+      <File FileName="Utils.cs" Line="17" Column="3" />
+      <File FileName="UVTransformer.cs" Line="1" Column="1" />
+      <File FileName="HUDNumberField.cs" Line="1" Column="1" />
+      <File FileName="Mk22HUD.cs" Line="241" Column="29" />
+      <File FileName="Mk22HUDSwitch.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
