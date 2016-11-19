@@ -1,52 +1,47 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BDMk22Plugin
 {
-	public class UVTransformer
-	{
-		public Mesh mesh;
-		public GameObject gameObject;
+    public class UvTransformer
+    {
+        private readonly Vector2[] _modifiedUv;
 
-		Vector2[] origUV;
-		Vector2[] modifiedUV;
-		public Vector2 textureSize;
+        private readonly Vector2[] _origUv;
 
-		Texture2D texture;
+        public GameObject GameObject;
+        public Mesh Mesh;
+        public Vector2 TextureSize;
 
 
-		public UVTransformer(GameObject meshObject)
-		{
-			gameObject = meshObject;
-			mesh = meshObject.GetComponent<MeshFilter>().mesh;
+        public UvTransformer(GameObject meshObject)
+        {
+            GameObject = meshObject;
+            Mesh = meshObject.GetComponent<MeshFilter>().mesh;
 
-			origUV = new Vector2[mesh.uv.Length];
-			modifiedUV = new Vector2[mesh.uv.Length];
-			for(int i = 0; i < origUV.Length; i++)
-			{
-				origUV[i] = mesh.uv[i];	
-			}
+            _origUv = new Vector2[Mesh.uv.Length];
+            _modifiedUv = new Vector2[Mesh.uv.Length];
+            for (var i = 0; i < _origUv.Length; i++)
+                _origUv[i] = Mesh.uv[i];
 
-			Debug.Log ("uv vert count: "+origUV.Length);
+            Debug.Log("uv vert count: " + _origUv.Length);
 
-			texture = (Texture2D)meshObject.GetComponent<MeshRenderer>().material.mainTexture;
-			textureSize = new Vector2((float)texture.width, (float)texture.height);
-		}
+            var texture = (Texture2D) meshObject.GetComponent<MeshRenderer>().material.mainTexture;
+            TextureSize = new Vector2(texture.width, texture.height);
+        }
 
-		public void UpdateUVTransformation(Vector2 initialOffset, float rotation, Vector2 rotationPivot, Vector2 shift)
-		{
-			for(int i = 0; i < origUV.Length; i++)
-			{
-				Vector2 textureSpace = Vector2.Scale(origUV[i], textureSize);
-				textureSpace += initialOffset;
-				textureSpace = Utils.RotateAroundPoint(textureSpace, rotationPivot, rotation);
-				textureSpace += shift;
+        public void UpdateUvTransformation(Vector2 initialOffset, float rotation, Vector2 rotationPivot, Vector2 shift)
+        {
+            for (var i = 0; i < _origUv.Length; i++)
+            {
+                var textureSpace = Vector2.Scale(_origUv[i], TextureSize);
+                textureSpace += initialOffset;
+                textureSpace = Utils.RotateAroundPoint(textureSpace, rotationPivot, rotation);
+                textureSpace += shift;
 
-				Vector2 uvSpace = new Vector2(textureSpace.x/textureSize.x, textureSpace.y/textureSize.y);
-				modifiedUV[i] = uvSpace;
-			}
-			mesh.uv = modifiedUV;
-		}
-	}
+                var uvSpace = new Vector2(textureSpace.x/TextureSize.x, textureSpace.y/TextureSize.y);
+                _modifiedUv[i] = uvSpace;
+            }
+            Mesh.uv = _modifiedUv;
+        }
+    }
 }
-

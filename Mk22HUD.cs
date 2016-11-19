@@ -24,7 +24,7 @@ namespace BDMk22Plugin
 		public string ladderMeshName;
 		[KSPField]
 		public Vector3 initialLadderOffset = Vector3.zero;
-		UVTransformer ladderUVT;
+		UvTransformer ladderUVT;
 		//Vector2 ladderTextureSize;
 
 		//velocityruler
@@ -32,14 +32,14 @@ namespace BDMk22Plugin
 		public string velRulerMeshName;
 		[KSPField]
 		public float velRulerCoefficient = 1.134842857f;
-		UVTransformer velRulerUVT;
+		UvTransformer velRulerUVT;
 	
 		//altruler
 		[KSPField]
 		public string altRulerMeshName;
 		[KSPField]
 		public float altRulerCoefficient = 1;
-		UVTransformer altRulerUVT;
+		UvTransformer altRulerUVT;
 		[KSPField]
 		public float maxRadarAlt = 5000;
 		[KSPField]
@@ -81,8 +81,8 @@ namespace BDMk22Plugin
 		public string spdDigitalTransformName;
 		Transform altDigitalTransform;
 		Transform spdDigitalTransform;
-		HUDNumberField altNumberField;
-		HUDNumberField spdNumberField;
+		HudNumberField altNumberField;
+		HudNumberField spdNumberField;
 		[KSPField]
 		public float digitCharWidth = 0.1598097f;
 		[KSPField]
@@ -107,7 +107,7 @@ namespace BDMk22Plugin
 		//headingruler
 		[KSPField]
 		public string headingRulerMeshName;
-		UVTransformer headingRulerUVT;
+		UvTransformer headingRulerUVT;
 
 		//overlay
 		[KSPField]
@@ -189,14 +189,14 @@ namespace BDMk22Plugin
 
 			Transform ladderMeshTransform = internalProp.FindModelTransform(ladderMeshName);
 
-			ladderUVT = new UVTransformer(ladderMeshTransform.gameObject);
+			ladderUVT = new UvTransformer(ladderMeshTransform.gameObject);
 			//ladderTextureSize = new Vector2(ladderUVT.texture.width, ladderUVT.texture.height);
 
-			velRulerUVT = new UVTransformer(internalProp.FindModelTransform(velRulerMeshName).gameObject);
+			velRulerUVT = new UvTransformer(internalProp.FindModelTransform(velRulerMeshName).gameObject);
 
-			altRulerUVT = new UVTransformer(internalProp.FindModelTransform(altRulerMeshName).gameObject);
+			altRulerUVT = new UvTransformer(internalProp.FindModelTransform(altRulerMeshName).gameObject);
 
-			headingRulerUVT = new UVTransformer(internalProp.FindModelTransform(headingRulerMeshName).gameObject);
+			headingRulerUVT = new UvTransformer(internalProp.FindModelTransform(headingRulerMeshName).gameObject);
 
 			velVectorObject = internalProp.FindModelTransform(velVectorObjectName).gameObject;
 			velVectorOrigPos = velVectorObject.transform.localPosition;
@@ -207,8 +207,8 @@ namespace BDMk22Plugin
 			digitReference = internalProp.FindModelTransform(digitReferenceName).gameObject;
 			altDigitalTransform = internalProp.FindModelTransform(altDigitalTransformName);
 			spdDigitalTransform = internalProp.FindModelTransform(spdDigitalTransformName);
-			altNumberField = new HUDNumberField(altDigitalTransform, 5, digitScale, digitReference, digitCharWidth, digitPixelWidth, HUDNumberField.HUDNumberAlign.Right);
-			spdNumberField = new HUDNumberField(spdDigitalTransform, 4, digitScale, digitReference, digitCharWidth, digitPixelWidth, HUDNumberField.HUDNumberAlign.Right);
+			altNumberField = new HudNumberField(altDigitalTransform, 5, digitScale, digitReference, digitCharWidth, digitPixelWidth, HudNumberField.HudNumberAlign.Right);
+			spdNumberField = new HudNumberField(spdDigitalTransform, 4, digitScale, digitReference, digitCharWidth, digitPixelWidth, HudNumberField.HudNumberAlign.Right);
 			digitReference.SetActive(false);
 
 			stallObject = internalProp.FindModelTransform(stallMeshName).gameObject;
@@ -498,10 +498,10 @@ namespace BDMk22Plugin
 				hudMaterials = new Material[] {
 					overlayTransform.GetComponent<MeshRenderer>().material,
 					velVectorObject.GetComponent<MeshRenderer>().material,
-					altRulerUVT.gameObject.GetComponent<MeshRenderer>().material,
-					ladderUVT.gameObject.GetComponent<MeshRenderer>().material,
-					velRulerUVT.gameObject.GetComponent<MeshRenderer>().material,
-					headingRulerUVT.gameObject.GetComponent<MeshRenderer>().material,
+					altRulerUVT.GameObject.GetComponent<MeshRenderer>().material,
+					ladderUVT.GameObject.GetComponent<MeshRenderer>().material,
+					velRulerUVT.GameObject.GetComponent<MeshRenderer>().material,
+					headingRulerUVT.GameObject.GetComponent<MeshRenderer>().material,
 					slipObject.GetComponent<MeshRenderer>().material,
 					stallObject.GetComponent<MeshRenderer>().material,
 					rdrObject.GetComponent<MeshRenderer>().material,
@@ -726,7 +726,7 @@ namespace BDMk22Plugin
 
 		void UpdateLadderUV() 
 		{
-			float pitchShift = (pitch / 90) * (ladderUVT.textureSize.y/2);
+			float pitchShift = (pitch / 90) * (ladderUVT.TextureSize.y/2);
 
 			Vector2 aoa = new Vector2(horizAoA, vertAoA);
 			aoa = Quaternion.AngleAxis(roll, Vector3.forward) * aoa;
@@ -736,7 +736,7 @@ namespace BDMk22Plugin
 
 			Vector2 shift = new Vector2(yawShift, pitchShift);
 
-			ladderUVT.UpdateUVTransformation(initialLadderOffset, -roll, 0.5f*ladderUVT.textureSize, shift);
+			ladderUVT.UpdateUvTransformation(initialLadderOffset, -roll, 0.5f*ladderUVT.TextureSize, shift);
 		}
 
 		void UpdateVelocityUV(bool updateDigital)
@@ -746,7 +746,7 @@ namespace BDMk22Plugin
 
 			Vector2 shift = new Vector2(-velShift, 0);
 
-			velRulerUVT.UpdateUVTransformation(shift, 0, Vector2.zero, Vector2.zero);
+			velRulerUVT.UpdateUvTransformation(shift, 0, Vector2.zero, Vector2.zero);
 
 			if(updateDigital)
 			{
@@ -760,7 +760,7 @@ namespace BDMk22Plugin
 
 			Vector2 shift = new Vector2(-altShift, 0);
 
-			altRulerUVT.UpdateUVTransformation(shift, 0, Vector2.zero, Vector2.zero);
+			altRulerUVT.UpdateUvTransformation(shift, 0, Vector2.zero, Vector2.zero);
 
 			if(displayRdrAlt)
 			{
@@ -803,10 +803,10 @@ namespace BDMk22Plugin
 
 		void UpdateHeadingUV()
 		{
-			float headingShift = headingRulerUVT.textureSize.x/360 * heading;
+			float headingShift = headingRulerUVT.TextureSize.x/360 * heading;
 			Vector2 shift = new Vector2(headingShift, 0);
 
-			headingRulerUVT.UpdateUVTransformation(shift, 0, Vector2.zero, Vector2.zero);
+			headingRulerUVT.UpdateUvTransformation(shift, 0, Vector2.zero, Vector2.zero);
 		}
 
 
