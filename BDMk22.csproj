@@ -123,7 +123,7 @@
     <Content Include="LocalDev\pdb2mdb_exe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Distribution\GameData\BDMk22\BDArmory.version" />
+    <None Include="Distribution\GameData\BDMk22\BDMk22.version" />
     <None Include="Distribution\GameData\BDMk22\Parts\mk22cockpit\mk22cockpit.cfg" />
     <None Include="Distribution\GameData\BDMk22\Parts\mk22cockpit\model.mu" />
     <None Include="Distribution\GameData\BDMk22\Parts\mk22Scockpit\mk22scockpit.cfg" />
