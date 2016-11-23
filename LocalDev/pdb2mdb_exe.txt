@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 C:\Games\Tools\pdb2mdb\pdb2mdb.exe
+=======
+G:\pdb2mdb\pdb2mdb.exe
+>>>>>>> 4ac82ece2402c161076c328fcf2710762c616d5e

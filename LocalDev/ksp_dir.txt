@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 C:\Games\KSP
+=======
+G:\GAMES\KERBAL\Kerbal Space Program_DEV_12
+>>>>>>> 4ac82ece2402c161076c328fcf2710762c616d5e

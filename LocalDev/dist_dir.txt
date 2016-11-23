@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 C:\cygwin\home\dlane\repo\gamerepo\Distribution
+=======
+D:\PROGRAMACION\KSP_Development\BDMk22\Builds
+>>>>>>> 4ac82ece2402c161076c328fcf2710762c616d5e
