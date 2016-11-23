@@ -1,0 +1,5 @@
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\BDMk22.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\BDMk22.pdb
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\obj\x86\Debug\BDMk22.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\obj\x86\Debug\BDMk22.pdb
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\obj\x86\Debug\BDMk22.csprojResolveAssemblyReference.cache
