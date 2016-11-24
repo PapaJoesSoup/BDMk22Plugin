@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 C:\Games\Tools\7zip
-=======
-G:\7za\x64
->>>>>>> 4ac82ece2402c161076c328fcf2710762c616d5e
