@@ -1,61 +1,77 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace BDMk22Plugin
+namespace BDMk22Plugin 
 {
-    public class Mk22HudSwitch : InternalModule
-    {
-        private Mk22HUD _hud;
-        public bool ButtonHudState;
+	public class Mk22HUDSwitch : InternalModule
+	{
+		Mk22HUD hud;
+		public bool buttonHudState = false;
 
-        public void ButtonHudToggle(bool state)
-        {
-            if (Mk22HUD.mk22HUDs == null)
-                return;
+		public void ButtonHUDToggle(bool state)
+		{
+			if(Mk22HUD.mk22HUDs == null)
+			{
+				return;
+			}
 
-            if (!_hud)
-            {
-                foreach (var h in Mk22HUD.mk22HUDs)
-                    if (h && (h.part == part))
-                        _hud = h;
+			if(!hud)
+			{
+				foreach(var h in Mk22HUD.mk22HUDs)
+				{
+					if(h && h.part == part)
+					{
+						hud = h;
+					}
+				}
 
-                if (!_hud)
-                    return;
-            }
-
-
-            ButtonHudState = state;
-            _hud.SetHUD(state);
-
-            Debug.Log("setting state: " + state);
-        }
-
-        public bool ButtonHudToggleState()
-        {
-            Debug.Log("attempting to get hud state");
-
-            if (Mk22HUD.mk22HUDs == null)
-            {
-                Debug.Log("hud list is null");
-                return false;
-            }
-
-            if (!_hud)
-            {
-                foreach (var h in Mk22HUD.mk22HUDs)
-                    if (h && (h.part == part))
-                        _hud = h;
-
-                if (!_hud)
-                {
-                    Debug.Log("failed to get hud component");
-                    return false;
-                }
-            }
+				if(!hud)
+				{
+					return;
+				}
+			}
 
 
-            Debug.Log("getting state: " + _hud.hasInitialized);
+			this.buttonHudState = state;
+			hud.SetHUD(state);
 
-            return _hud.hasInitialized;
-        }
-    }
+			Debug.Log("setting state: " + state);
+		}
+
+		public bool ButtonHUDToggleState()
+		{
+			Debug.Log("attempting to get hud state");
+
+			if(Mk22HUD.mk22HUDs == null)
+			{
+				Debug.Log("hud list is null");
+				return false;
+
+			}
+
+			if(!hud)
+			{
+				foreach(var h in Mk22HUD.mk22HUDs)
+				{
+					if(h && h.part == part)
+					{
+						hud = h;
+					}
+				}
+
+				if(!hud)
+				{
+					Debug.Log("failed to get hud component");
+					return false;
+				}
+			}
+
+
+
+			Debug.Log("getting state: " + hud.hasInitialized);
+
+			return hud.hasInitialized;
+		}
+	}
 }
+

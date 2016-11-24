@@ -1,163 +1,173 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BDMk22Plugin
 {
-    public class HudNumberField
-    {
-        public enum HudNumberAlign
-        {
-            Left,
-            Right
-        }
+	public class HUDNumberField
+	{
+		public enum HUDNumberAlign{Left, Right};
 
-        private readonly HudNumberAlign _alignment;
-        private readonly float _charPixelWidth;
+		public GameObject[] digitObjects;
 
-        private readonly int[] _digits;
+		HUDNumberAlign alignment;
 
-        private readonly int _maxValue;
-        private readonly UvTransformer[] _uvTs;
+		int[] digits;
+		UVTransformer[] UVTs;
+		Transform transform;
 
-        private float _charWidth;
+		float charWidth;
+		float charPixelWidth;
+		int digCount;
 
-        private int _currValue = -1;
-        private Transform _transform;
+		int currValue = -1;
 
-        public GameObject[] DigitObjects;
+		int maxValue = 0;
 
-        public HudNumberField(Transform transform, int digitCount, float scale, GameObject digitReference,
-            float charWidth, float charPixelWidth, HudNumberAlign alignment)
-        {
-            _transform = transform;
-            _charWidth = charWidth;
-            _charPixelWidth = charPixelWidth;
-            _alignment = alignment;
-            DigitCount = digitCount;
+		public int digitCount
+		{
+			get	
+			{
+				return digCount;	
+			}
+		}
 
-            DigitObjects = new GameObject[digitCount];
-            _uvTs = new UvTransformer[digitCount];
-            _digits = new int[digitCount];
-            for (var i = 0; i < digitCount; i++)
-            {
-                var digitObject = Object.Instantiate(digitReference);
-                DigitObjects[i] = digitObject;
-                digitObject.transform.parent = transform;
-                digitObject.transform.localScale = Vector3.one;
-                digitObject.transform.localPosition = Vector3.zero;
-                digitObject.transform.localRotation = Quaternion.identity;
-                digitObject.SetActive(true);
-                if (alignment == HudNumberAlign.Right)
-                    digitObject.transform.localPosition -= charWidth*digitCount*Vector3.right;
-                digitObject.transform.localPosition += charWidth*i*Vector3.right;
+		public HUDNumberField(Transform transform, int digitCount, float scale, GameObject digitReference, float charWidth, float charPixelWidth, HUDNumberAlign alignment)
+		{
+			this.transform = transform;
+			this.charWidth = charWidth;
+			this.charPixelWidth = charPixelWidth;
+			this.alignment = alignment;
+			digCount = digitCount;
 
-                _uvTs[i] = new UvTransformer(digitObject);
+			digitObjects = new GameObject[digitCount];
+			UVTs = new UVTransformer[digitCount];
+			digits = new int[digitCount];
+			for(int i = 0; i < digitCount; i++)
+			{
+				GameObject digitObject = (GameObject)GameObject.Instantiate(digitReference);
+				digitObjects[i] = digitObject;
+				digitObject.transform.parent = transform;
+				digitObject.transform.localScale = Vector3.one;
+				digitObject.transform.localPosition = Vector3.zero;
+				digitObject.transform.localRotation = Quaternion.identity;
+				digitObject.SetActive(true);
+				if(alignment == HUDNumberAlign.Right)
+				{
+					digitObject.transform.localPosition -= (charWidth * digitCount) * Vector3.right;
+				}
+				digitObject.transform.localPosition += (charWidth * i) * Vector3.right;
 
-                transform.localScale = scale*Vector3.one;
+				UVTs[i] = new UVTransformer(digitObject);
 
-                _digits[i] = -1;
-            }
+				transform.localScale = scale*Vector3.one;
 
-            var maxValChars = new char[digitCount];
-            for (var i = 0; i < digitCount; i++)
-                maxValChars[i] = '9';
-            var maxValString = new string(maxValChars);
-            _maxValue = int.Parse(maxValString);
-        }
+				digits[i] = -1;
+			}
 
-        public int DigitCount { get; }
+			char[] maxValChars = new char[digitCount];
+			for(int i = 0; i < digitCount; i++)
+			{
+				maxValChars[i] = '9';	
+			}
+			string maxValString = new string(maxValChars);
+			maxValue = int.Parse(maxValString);
+		}
 
-        public void Destroy()
-        {
-            if (DigitObjects == null) return;
+		public void Destroy()
+		{
+			if(digitObjects != null)
+			{
+				for(int i = 0; i < digitObjects.Length; i++)
+				{
+					if(digitObjects[i])
+					{
+						GameObject.Destroy(digitObjects[i]);
+					}
+				}
+			}
+		}
 
-            for (var i = 0; i < DigitObjects.Length; i++)
-            {
-                if (DigitObjects[i])
-                {
-                      Object.Destroy(DigitObjects[i]);
-                }                  
-            }
-              
-        }
+		public void SetValue(int val)
+		{
+			val = Mathf.Clamp(val, -1, maxValue);
 
-        public void SetValue(int val)
-        {
-            val = Mathf.Clamp(val, -1, _maxValue);
+			if(currValue!=val)
+			{
+				//Debug.Log ("Setting value: "+val);
+				currValue = val;
 
-            if (_currValue != val)
-            {
-                //Debug.Log ("Setting value: "+val);
-                _currValue = val;
+				if(val < 0)
+				{
+					for(int i = 0; i < digitCount; i++)	
+					{
+						SetDigit(-1, i);	
+					}
+				}
 
-                if (val < 0)
-                {
-                    for (var i = 0; i < DigitCount; i++)
-                    {
-                         SetDigit(-1, i);
-                    }                      
-                }
-                  
+				string intString = val.ToString();
 
-                int[] digits;
-                if (val == 0)
-                {
-                    digits = new[] {0};
-                }
-                else
-                {
-                    var listOfInts = new List<int>();
-                    var num = val;
-                    while (num > 0)
-                    {
-                        listOfInts.Add(num%10);
-                        num = num/10;
-                    }
-                    listOfInts.Reverse();
-                    digits = listOfInts.ToArray();
-                }
+				int[] digits;
+				if(val == 0)
+				{
+					digits = new int[]{ 0 };
+				}
+				else
+				{
+					List<int> listOfInts = new List<int>();
+					int num = val;
+					while(num > 0)
+					{
+						listOfInts.Add(num % 10);
+						num = num / 10;
+					}
+					listOfInts.Reverse();
+					digits = listOfInts.ToArray();
+				}
+					
+				int valDigitCount = digits.Length;//intString.Length;
+				int extraChars = digitCount-valDigitCount;
 
-                var valDigitCount = digits.Length; //intString.Length;
-                var extraChars = DigitCount - valDigitCount;
+				if(alignment == HUDNumberAlign.Right)
+				{
+					//set extra spaces to blank
+					for(int i = 0; i < extraChars; i++)
+					{
+						SetDigit(-1, i);	
+					}
 
-                if (_alignment == HudNumberAlign.Right)
-                {
-                    //set extra spaces to blank
-                    for (var i = 0; i < extraChars; i++)
-                        SetDigit(-1, i);
+					for(int i = 0; i < valDigitCount; i++)
+					{
+						int digit = digits[i];//int.Parse(intString.Substring(i, 1));	
+						int index = extraChars + i;
+						SetDigit(digit, index);
+					}
+				}
+				else
+				{
+					for(int i = 0; i < valDigitCount; i++)
+					{
+						int digit = digits[i];//int.Parse(intString.Substring(i, 1));	
+						SetDigit(digit, i);	
+					}
 
-                    for (var i = 0; i < valDigitCount; i++)
-                    {
-                        var digit = digits[i]; //int.Parse(intString.Substring(i, 1));	
-                        var index = extraChars + i;
-                        SetDigit(digit, index);
-                    }
-                }
-                else
-                {
-                    for (var i = 0; i < valDigitCount; i++)
-                    {
-                        var digit = digits[i]; //int.Parse(intString.Substring(i, 1));	
-                        SetDigit(digit, i);
-                    }
+					for(int i = 0; i < extraChars; i++)
+					{
+						int index = valDigitCount + i;	
+						SetDigit(-1, index);
+					}
+				}
+			}
+		}
 
-                    for (var i = 0; i < extraChars; i++)
-                    {
-                        var index = valDigitCount + i;
-                        SetDigit(-1, index);
-                    }
-                }
-            }
-        }
-
-        private void SetDigit(int digit, int index)
-        {
-            if (digit != _digits[index])
-            {
-                _uvTs[index].UpdateUvTransformation(new Vector2(_charPixelWidth*(digit + 1), 0), 0, Vector2.zero,
-                    Vector2.zero);
-                _digits[index] = digit;
-            }
-        }
-    }
+		void SetDigit(int digit, int index)
+		{
+			if(digit != digits[index])
+			{
+				UVTs[index].UpdateUVTransformation(new Vector2(charPixelWidth * (digit+1), 0), 0, Vector2.zero, Vector2.zero);	
+				digits[index] = digit;
+			}
+		}
+	}
 }
+
