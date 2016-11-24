@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\bin
-=======
-G:\Unity\Editor\Data\MonoBleedingEdge\bin\mono.exe
->>>>>>> 4ac82ece2402c161076c328fcf2710762c616d5e
