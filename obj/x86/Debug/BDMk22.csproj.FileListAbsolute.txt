@@ -3,3 +3,14 @@ C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\BDMk22.pdb
 C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\obj\x86\Debug\BDMk22.dll
 C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\obj\x86\Debug\BDMk22.pdb
 C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\obj\x86\Debug\BDMk22.csprojResolveAssemblyReference.cache
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\Assembly-CSharp.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\UnityEngine.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\UnityEngine.UI.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\TrackIRUnity.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\System.Xml.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\KSPAssets.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\Mono.Cecil.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\TDx.TDxInput.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\Mono.Security.dll
+C:\cygwin\home\dlane\repo\gamerepo\BDMk22Plugin\bin\Debug\UnityEngine.xml
